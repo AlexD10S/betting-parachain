@@ -29,7 +29,7 @@ use frame_support::{
 	construct_runtime,
 	dispatch::DispatchClass,
 	parameter_types,
-	traits::Everything,
+	traits::{ConstU32, Everything},
 	weights::{
 		constants::WEIGHT_PER_SECOND, ConstantMultiplier, Weight, WeightToFeeCoefficient,
 		WeightToFeeCoefficients, WeightToFeePolynomial,
@@ -464,6 +464,18 @@ impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+parameter_types! {
+	pub const BettingPalletId: PalletId = PalletId(*b"py/betts");
+}
+
+impl pallet_betting::Config for Runtime {
+	type PalletId = BettingPalletId;
+	type Currency = Balances;
+	type RuntimeEvent = RuntimeEvent;
+	type MaxTeamNameLength = ConstU32<64>;
+	type MaxBetsPerMatch = ConstU32<10>;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -498,6 +510,9 @@ construct_runtime!(
 
 		// Template
 		TemplatePallet: pallet_template::{Pallet, Call, Storage, Event<T>}  = 40,
+
+		// Betting Pallet
+		Betting: pallet_betting::{Pallet, Call, Storage, Event<T>}  = 42,
 	}
 );
 
@@ -513,6 +528,7 @@ mod benches {
 		[pallet_session, SessionBench::<Runtime>]
 		[pallet_timestamp, Timestamp]
 		[pallet_collator_selection, CollatorSelection]
+		[pallet_betting, Betting]
 		[cumulus_pallet_xcmp_queue, XcmpQueue]
 	);
 }

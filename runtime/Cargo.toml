@@ -73,6 +73,9 @@ cumulus-primitives-utility = { git = "https://github.com/paritytech/cumulus.git"
 pallet-collator-selection = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.32", default-features = false }
 parachain-info = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.32", default-features = false }
 
+# External Dependencies
+pallet-betting = { version = "0.0.3", default-features = false, git = "https://github.com/AlexD10S/substrate-betting.git", branch = "main" }
+
 [features]
 default = [
 	"std",
@@ -104,6 +107,7 @@ std = [
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-transaction-payment/std",
 	"pallet-xcm/std",
+	"pallet-betting/std",
 	"parachain-info/std",
 	"polkadot-parachain/std",
 	"polkadot-runtime-common/std",
@@ -134,6 +138,7 @@ runtime-benchmarks = [
 	"pallet-template/runtime-benchmarks",
 	"pallet-timestamp/runtime-benchmarks",
 	"pallet-xcm/runtime-benchmarks",
+	"pallet-betting/runtime-benchmarks",
 	"sp-runtime/runtime-benchmarks",
 	"xcm-builder/runtime-benchmarks",
 	"cumulus-pallet-session-benchmarking/runtime-benchmarks",
