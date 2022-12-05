@@ -31,11 +31,11 @@ fn create_match<T: Config>(result: Option<MatchResult>) -> T::AccountId {
     caller
 }
 
-fn add_bet<T: Config>(user: &'static str, match_id: AccountIdOf<T>, a: BalanceOf<T>, r: MatchResult) {
+fn add_bet<T: Config>(user: &'static str, match_id: AccountIdOf<T>, a: u32, r: MatchResult) {
     let caller = account(user, 0, 0);
     T::Currency::make_free_balance_be(&caller, T::Currency::minimum_balance() * 10u32.into());
     let origin = <T::RuntimeOrigin>::from(RawOrigin::Signed(caller));
-    let _ = Betting::<T>::bet(origin, match_id, a.into(), r);
+    let _ = Betting::<T>::bet(origin, match_id, T::Currency::minimum_balance() * a.into(), r);
 }
 
 benchmarks! {
@@ -76,11 +76,11 @@ benchmarks! {
         let match_id = create_match::<T>(Some(MatchResult::Team1Victory));
         frame_system::Pallet::<T>::set_block_number(15u32.into());
         let result = MatchResult::Team1Victory;
-        add_bet::<T>("user1", match_id.clone(), T::Currency::minimum_balance(), MatchResult::Team1Victory);
-        add_bet::<T>("user2", match_id.clone(), T::Currency::minimum_balance() * 2u32.into(), MatchResult::Team2Victory);
-        add_bet::<T>("user3", match_id.clone(), T::Currency::minimum_balance() * 3u32.into(), MatchResult::Draw);
-        add_bet::<T>("user4", match_id.clone(), T::Currency::minimum_balance() * 4u32.into(), MatchResult::Draw);
-        add_bet::<T>("user5", match_id.clone(), T::Currency::minimum_balance() * 5u32.into(), MatchResult::Team1Victory);
+        add_bet::<T>("user1", match_id.clone(), 1, MatchResult::Team1Victory);
+        add_bet::<T>("user2", match_id.clone(), 2, MatchResult::Team2Victory);
+        add_bet::<T>("user3", match_id.clone(), 3, MatchResult::Draw);
+        add_bet::<T>("user4", match_id.clone(), 4, MatchResult::Draw);
+        add_bet::<T>("user5", match_id.clone(), 5, MatchResult::Team1Victory);
     }: _(RawOrigin::Signed(match_id.clone()))
     verify {
         assert_eq!(Matches::<T>::contains_key(&match_id), false);
