@@ -469,6 +469,7 @@ impl pallet_betting::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type MaxTeamNameLength = ConstU32<64>;
 	type MaxBetsPerMatch = ConstU32<10>;
+	type WeightInfo = pallet_betting::weights::SubstrateWeight<Runtime>;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.

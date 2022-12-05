@@ -71,7 +71,7 @@ pallet-collator-selection = { git = "https://github.com/paritytech/cumulus.git",
 parachain-info = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.32", default-features = false }
 
 # External Dependencies
-pallet-betting = { version = "0.0.3", default-features = false, git = "https://github.com/AlexD10S/substrate-betting.git", branch = "main" }
+pallet-betting = { version = "0.0.3", default-features = false, path = "../pallets/betting" }
 
 [features]
 default = [
