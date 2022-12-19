@@ -59,9 +59,6 @@ use xcm_executor::XcmExecutor;
 /// Import the betting pallet.
 pub use pallet_betting;
 
-/// Import the betting pallet.
-pub use pallet_betting;
-
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
 

@@ -28,6 +28,7 @@ cumulus_based = true
 name = "betting-collator"
 command = "./bin/parachain-template-node"
 ws_port = 9955
+rpc_port = 9956
 
 [types.Header]
 number = "u64"

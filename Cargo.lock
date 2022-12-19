@@ -5003,6 +5003,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-betting-rpc"
+version = "0.0.1"
+source = "git+https://github.com/AlexD10S/substrate-betting.git?branch=main#841d62e8f5c572f94b4c284be1e2d1d8f4bec90d"
+dependencies = [
+ "jsonrpsee",
+ "pallet-betting-rpc-runtime-api",
+ "parity-scale-codec",
+ "sp-api",
+ "sp-blockchain",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-betting-rpc-runtime-api"
 version = "0.0.1"
 source = "git+https://github.com/AlexD10S/substrate-betting.git?branch=main#841d62e8f5c572f94b4c284be1e2d1d8f4bec90d"
@@ -5859,6 +5872,7 @@ dependencies = [
  "frame-benchmarking-cli",
  "jsonrpsee",
  "log",
+ "pallet-betting-rpc",
  "pallet-transaction-payment-rpc",
  "parachain-template-runtime",
  "parity-scale-codec",
@@ -11217,7 +11231,7 @@ version = "1.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fee6b57c6a41524a810daee9286c02d7752c4253064d0b05472833a438f675"
 dependencies = [
- "cfg-if 1.0.0",
+ "cfg-if 0.1.10",
  "digest 0.10.6",
  "rand 0.8.5",
  "static_assertions",
