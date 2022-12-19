@@ -34,7 +34,7 @@ use frame_support::{
 		constants::WEIGHT_PER_SECOND, ConstantMultiplier, Weight, WeightToFeeCoefficient,
 		WeightToFeeCoefficients, WeightToFeePolynomial,
 	},
-	PalletId,
+	PalletId, BoundedVec
 };
 use frame_system::{
 	limits::{BlockLength, BlockWeights},
@@ -74,6 +74,11 @@ pub type Index = u32;
 
 /// A hash of some data used by the chain.
 pub type Hash = sp_core::H256;
+
+//Betting pallet 
+pub type TeamName = BoundedVec<u8, ConstU32<64>>;
+pub type Bet = pallet_betting::Bet<AccountId, pallet_betting::MatchResult, Balance>;
+pub type Match = pallet_betting::Match<BlockNumber, TeamName, BoundedVec<Bet, ConstU32<10>>, Balance>;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -460,16 +465,19 @@ impl pallet_collator_selection::Config for Runtime {
 }
 
 parameter_types! {
+	pub const MatchDeposit: Balance = 1_000_000_000_000;
 	pub const BettingPalletId: PalletId = PalletId(*b"py/betts");
 }
 
+
 impl pallet_betting::Config for Runtime {
-	type PalletId = BettingPalletId;
-	type Currency = Balances;
-	type RuntimeEvent = RuntimeEvent;
-	type MaxTeamNameLength = ConstU32<64>;
-	type MaxBetsPerMatch = ConstU32<10>;
-	type WeightInfo = pallet_betting::weights::SubstrateWeight<Runtime>;
+    type PalletId = BettingPalletId;
+    type Currency = Balances;
+    type RuntimeEvent = RuntimeEvent;
+    type MaxTeamNameLength = ConstU32<64>;
+    type MaxBetsPerMatch = ConstU32<10>;
+	type MatchDeposit = MatchDeposit;
+    type WeightInfo = pallet_betting::weights::SubstrateWeight<Runtime>;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -585,6 +593,13 @@ impl_runtime_apis! {
 			block_hash: <Block as BlockT>::Hash,
 		) -> TransactionValidity {
 			Executive::validate_transaction(source, tx, block_hash)
+		}
+	}
+
+	impl pallet_betting_rpc_runtime_api::BettingApi<Block, AccountId, Match> for Runtime {
+		fn get_match(match_id: AccountId) -> pallet_betting_rpc_runtime_api::RpcResult<Match>
+		{
+			Betting::get_match(match_id)
 		}
 	}
 

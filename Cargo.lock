@@ -4986,6 +4986,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-betting"
+version = "0.0.3"
+source = "git+https://github.com/AlexD10S/substrate-betting.git?branch=main#841d62e8f5c572f94b4c284be1e2d1d8f4bec90d"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-arithmetic",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-betting-rpc-runtime-api"
+version = "0.0.1"
+source = "git+https://github.com/AlexD10S/substrate-betting.git?branch=main#841d62e8f5c572f94b4c284be1e2d1d8f4bec90d"
+dependencies = [
+ "pallet-betting 0.0.3 (git+https://github.com/AlexD10S/substrate-betting.git?branch=main)",
+ "parity-scale-codec",
+ "sp-api",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-bounties"
 version = "4.0.0-dev"
 source = "git+https://github.com/paritytech/substrate?branch=polkadot-v0.9.32#5ea6d95309aaccfa399c5f72e5a14a4b7c6c4ca1"
@@ -5896,7 +5924,8 @@ dependencies = [
  "pallet-aura",
  "pallet-authorship",
  "pallet-balances",
- "pallet-betting",
+ "pallet-betting 0.0.3 (git+https://github.com/AlexD10S/substrate-betting.git?branch=main)",
+ "pallet-betting-rpc-runtime-api",
  "pallet-collator-selection",
  "pallet-session",
  "pallet-sudo",
