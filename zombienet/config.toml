@@ -33,4 +33,3 @@ ws_port = 9955
 number = "u64"
 parent_hash = "Hash"
 post_state = "Hash"
-

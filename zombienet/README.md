@@ -10,6 +10,18 @@ Copy it to `./bin`.
 wget https://github.com/paritytech/zombienet/releases/download/v1.3.18/zombienet-linux -P ./bin
 chmod +x ./bin/zombienet-linux
 ```
+Or in MacOS:
+
+```shell
+wget https://github.com/paritytech/zombienet/releases/download/v1.3.18/zombienet-macos -P ./bin
+chmod +x zombienet-macos 
+cp zombienet-macos /usr/local/bin
+```
+
+Let’s make sure Zombienet CLI is installed correctly:
+```shell
+./zombienet-macos --help
+```
 
 ### Relay Chain Node Binary:
 
@@ -20,6 +32,13 @@ Copy it to `./bin`.
 ```shell
 wget https://github.com/paritytech/polkadot/releases/download/v0.9.32/polkadot -P ./bin
 chmod +x ./bin/polkadot
+```
+
+Or generate it yourself from the code:
+```shell
+git clone https://github.com/paritytech/polkadot
+cargo build --release
+cp ./target/release/polkadot ../bin/polkadot
 ```
 
 ### Parachain node Binary:
@@ -53,6 +72,11 @@ total 421M
 
 ```shell
 ./bin/zombienet-linux -p native spawn config.toml
+```
+
+or MacOS:
+```shell
+./bin/zombienet-macos -p native spawn config.toml
 ```
 
 - After it boots up, open PolkadotJS UI in a browser:
