@@ -464,6 +464,12 @@ impl pallet_collator_selection::Config for Runtime {
 	type WeightInfo = ();
 }
 
+impl pallet_sudo::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type RuntimeCall = RuntimeCall;
+}
+
+
 parameter_types! {
 	pub const MatchDeposit: Balance = 1_000_000_000_000;
 	pub const BettingPalletId: PalletId = PalletId(*b"py/betts");
@@ -512,6 +518,7 @@ construct_runtime!(
 		CumulusXcm: cumulus_pallet_xcm::{Pallet, Event<T>, Origin} = 32,
 		DmpQueue: cumulus_pallet_dmp_queue::{Pallet, Call, Storage, Event<T>} = 33,
 
+		Sudo: pallet_sudo,
 		// Betting Pallet
 		Betting: pallet_betting::{Pallet, Call, Storage, Event<T>}  = 42,
 	}
